@@ -21,7 +21,9 @@ module Doorkeeper
     end
 
     config.to_prepare do
-      Doorkeeper.run_orm_hooks
+      ActiveSupport.on_load(:active_record) do
+        Doorkeeper.run_orm_hooks
+      end
     end
 
     if defined?(Sprockets) && Sprockets::VERSION.chr.to_i >= 4
